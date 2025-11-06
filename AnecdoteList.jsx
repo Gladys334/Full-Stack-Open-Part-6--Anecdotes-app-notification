@@ -1,15 +1,12 @@
-import { useNotificationDispatch } from './Context/NotificationContext'
+
+import { useNotificationDispatch, setNotification } from './Context/NotificationContext'
 
 const AnecdoteList = ({ anecdotes, vote }) => {
   const dispatch = useNotificationDispatch()
 
   const handleVote = (anecdote) => {
     vote(anecdote.id)
-    dispatch({ type: 'SET', payload: `You voted for "${anecdote.content}"` })
-
-    setTimeout(() => {
-      dispatch({ type: 'CLEAR' })
-    }, 5000)
+    setNotification(dispatch, `You voted for "${anecdote.content}"`, 5)
   }
 
   return (
@@ -21,7 +18,6 @@ const AnecdoteList = ({ anecdotes, vote }) => {
             has {anecdote.votes} votes
             <button onClick={() => handleVote(anecdote)}>vote</button>
           </div>
-          <hr />
         </div>
       ))}
     </div>
