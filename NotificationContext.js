@@ -26,7 +26,7 @@ export const NotificationProvider = ({ children }) => {
   )
 }
 
-// Custom hook to use the context
+// Custom hooks to use the context
 export const useNotificationValue = () => {
   const [notification] = useContext(NotificationContext)
   return notification
@@ -37,4 +37,10 @@ export const useNotificationDispatch = () => {
   return dispatch
 }
 
-export default NotificationContext
+// ✅ Helper function for Exercise 6.24
+export const setNotification = (dispatch, message, seconds = 5) => {
+  dispatch({ type: 'SET', payload: message })
+  setTimeout(() => {
+    dispatch({ type: 'CLEAR' })
+  }, seconds * 1000)
+}
