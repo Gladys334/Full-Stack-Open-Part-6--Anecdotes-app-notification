@@ -1,5 +1,6 @@
+
 import { useState } from 'react'
-import { useNotificationDispatch } from './Context/NotificationContext'
+import { useNotificationDispatch, setNotification } from './context/NotificationContext'
 
 const AnecdoteForm = ({ addNew }) => {
   const [content, setContent] = useState('')
@@ -8,10 +9,7 @@ const AnecdoteForm = ({ addNew }) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     addNew(content)
-    dispatch({ type: 'SET', payload: `You added "${content}"` })
-    setTimeout(() => {
-      dispatch({ type: 'CLEAR' })
-    }, 5000)
+    setNotification(dispatch, `You added "${content}"`, 5)
     setContent('')
   }
 
@@ -21,9 +19,8 @@ const AnecdoteForm = ({ addNew }) => {
       <input
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder="Write your anecdote"
       />
-      <button type="submit">Add</button>
+      <button type="submit">create</button>
     </form>
   )
 }
